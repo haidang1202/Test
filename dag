@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thư Gửi Em</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffc0cb, #ffe4e1);
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .envelope {
+      width: 200px;
+      height: 120px;
+      background: #fff;
+      border: 2px solid #d6336c;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      user-select: none;
+      z-index: 2;
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 20px solid #fff;
+    }
+
+    .envelope:hover {
+      transform: scale(1.05);
+      background-color: #ffeef2;
+    }
+
+    .message {
+      display: none;
+      margin-top: 30px;
+      max-width: 600px;
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      border: 2px solid #ff88aa;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s forwards;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+    }
+
+    .message::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      background: white;
+      border: 2px solid #ff88aa;
+      border-top: none;
+      border-right: none;
+      transform: rotate(45deg) translateX(-50%);
+      z-index: -1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.5);}
+      to { opacity: 1; transform: scale(1);}
+    }
+
+    h1 {
+      color: #d6336c;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.8;
+      white-space: pre-line;
+      text-align: justify;
+    }
+
+    .snowflake {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-30px);
+      }
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope" onclick="openLetter()">
+    <strong>Nhấn vào để mở thư</strong>
+  </div>
+
+  <div class="message" id="letter">
+    <h1>Gửi Em</h1>
+    <p>
+Duyên à  
+Anh không biết cách ăn nói cho hay,  
+cũng không giỏi làm em vui hay chăm em như bao người khác.  
+Nhưng điều duy nhất anh chắc chắn là tình cảm của anh dành cho em.  
+Anh muốn được bên em, muốn thấy nụ cười hạnh phúc của em, chỉ đơn giản vậy thôi.
+    </p>
+  </div>
+
+  <audio id="audio" src="https://www.youtube.com/watch?v=FO_OPSZ20UA" preload="auto"></audio>
+
+  <script>
+    function openLetter() {
+      const envelope = document.querySelector('.envelope');
+      envelope.style.display = 'none';
+
+      setTimeout(() => {
+        document.getElementById('letter').style.display = 'block';
+        createSnowflakes(); // Bắt đầu tạo tuyết rơi
+        playAudio(); // Phát bài hát
+      }, 2600);
+    }
+
+    function playAudio() {
+      const audio = new Audio("https://www.youtube.com/watch?v=FO_OPSZ20UA");
+      audio.play(); // Phát bài hát
+    }
+
+    function createSnowflakes() {
+      for (let i = 0; i < 10; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        const size = Math.random() * 10 + 5; // Kích thước ngẫu nhiên
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${Math.random() * 100}vw`; // Vị trí ngẫu nhiên
+        snowflake.style.animationDuration = `${Math.random() * 5 + 3}s`; // Thời gian rơi ngẫu nhiên (chậm hơn)
+        document.body.appendChild(snowflake);
+
+        // Xóa tuyết sau khi rơi xong
+        setTimeout(() => {
+          snowflake.remove();
+        }, 8000);
+      }
+    }
+
+    setInterval(createSnowflakes, 600); // Tạo tuyết mỗi 600ms
+  </script>
+
+</body>
+</html>
