@@ -107,23 +107,20 @@
       border-radius: 50%;
       pointer-events: none;
       animation: fall linear infinite;
+      top: 0; /* Bắt đầu từ đầu màn hình */
     }
 
     @keyframes fall {
       0% {
-        transform: translateY(-30px);
+        transform: translateY(0);
       }
       100% {
         transform: translateY(100vh);
       }
     }
 
-    iframe {
-      display: none; /* Ẩn video cho đến khi mở thư */
-      width: 100%;
-      height: 315px;
-      margin-top: 20px;
-      border: none;
+    audio {
+      display: none; /* Ẩn audio player */
     }
   </style>
 </head>
@@ -142,7 +139,10 @@ cũng không giỏi làm em vui hay chăm em như bao người khác.
 Nhưng điều duy nhất anh chắc chắn là tình cảm của anh dành cho em.  
 Anh muốn được bên em, muốn thấy nụ cười hạnh phúc của em, chỉ đơn giản vậy thôi.
     </p>
-    <iframe id="video" src="https://www.youtube.com/embed/FO_OPSZ20UA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- Elfsight Audio Player | Untitled Audio Player -->
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
+    <div class="elfsight-app-c67dcf28-7f8c-4ccb-ac53-a77f65e79b71" data-elfsight-app-lazy style="display:none;"></div>
+    <audio id="audio" src="https://pfst.cf2.poecdn.net/base/audio/28680db778de072e66611f737ed09e5dff8da8208e04dda019f58c7937e54c3a" preload="auto"></audio>
   </div>
 
   <script>
@@ -152,10 +152,8 @@ Anh muốn được bên em, muốn thấy nụ cười hạnh phúc của em, c
 
       setTimeout(() => {
         document.getElementById('letter').style.display = 'block';
-        document.getElementById('video').style.display = 'block'; // Hiện video
-        const video = document.getElementById('video');
-        video.src += "?autoplay=1"; // Phát video tự động
-        createSnowflakes(); // Bắt đầu tạo tuyết rơi
+        const audio = document.getElementById('audio');
+        audio.play(); // Phát nhạc tự động
       }, 2600);
     }
 
@@ -167,7 +165,7 @@ Anh muốn được bên em, muốn thấy nụ cười hạnh phúc của em, c
         snowflake.style.width = `${size}px`;
         snowflake.style.height = `${size}px`;
         snowflake.style.left = `${Math.random() * 100}vw`; // Vị trí ngẫu nhiên
-        snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // Thời gian rơi ngẫu nhiên (chậm hơn)
+        snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // Thời gian rơi ngẫu nhiên
         document.body.appendChild(snowflake);
 
         // Xóa tuyết sau khi rơi xong
@@ -177,6 +175,8 @@ Anh muốn được bên em, muốn thấy nụ cười hạnh phúc của em, c
       }
     }
 
+    // Tạo tuyết ngay khi trang được tải
+    createSnowflakes();
     setInterval(createSnowflakes, 600); // Tạo tuyết mỗi 600ms
   </script>
 
